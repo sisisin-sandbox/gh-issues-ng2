@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { HelloWorldComponent } from './hello-world.component';
+import { AppComponent } from './components/app.component';
+import { HelloWorldComponent } from './components/hello-world.component';
 
 import { AppActions } from './app.actions';
 import { AppDispatcher } from './app.dispatcher';

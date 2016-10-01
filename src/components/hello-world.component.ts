@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { User } from './app.state';
-import { AppActions } from './app.actions';
-import { AppDispatcher } from './app.dispatcher';
+import { User } from '../app.state';
+import { AppActions } from '../app.actions';
+import { AppDispatcher } from '../app.dispatcher';
 
 @Component({
   selector: 'hello-world',

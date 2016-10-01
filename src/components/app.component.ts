@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AppActions } from './app.actions';
-import { AppDispatcher } from './app.dispatcher';
-import { AppStore } from './app.store';
-import { AppState } from './app.state';
+import { AppActions } from '../app.actions';
+import { AppDispatcher } from '../app.dispatcher';
+import { AppStore } from '../app.store';
+import { AppState } from '../app.state';
 
 @Component({
   selector: 'my-app',

@@ -42,42 +42,6 @@ exports.AppActions = AppActions;
 
 },{"@angular/core":10,"walts":666}],2:[function(require,module,exports){
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require('@angular/core');
-var app_actions_1 = require('./app.actions');
-var app_dispatcher_1 = require('./app.dispatcher');
-var app_store_1 = require('./app.store');
-var AppComponent = (function () {
-    function AppComponent(actions, dispatcher, store) {
-        this.actions = actions;
-        this.dispatcher = dispatcher;
-        this.store = store;
-    }
-    AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.store.appState.subscribe(function (s) { return _this.state = s; });
-    };
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            template: "\n    <hello-world [user]=state.user></hello-world>\n  "
-        }), 
-        __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher, app_store_1.AppStore])
-    ], AppComponent);
-    return AppComponent;
-}());
-exports.AppComponent = AppComponent;
-
-},{"./app.actions":1,"./app.dispatcher":3,"./app.store":5,"@angular/core":10}],3:[function(require,module,exports){
-"use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -107,7 +71,7 @@ var AppDispatcher = (function (_super) {
 }(walts_1.Dispatcher));
 exports.AppDispatcher = AppDispatcher;
 
-},{"@angular/core":10,"walts":666}],4:[function(require,module,exports){
+},{"@angular/core":10,"walts":666}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -121,8 +85,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var hello_world_component_1 = require('./hello-world.component');
+var app_component_1 = require('./components/app.component');
+var hello_world_component_1 = require('./components/hello-world.component');
 var app_actions_1 = require('./app.actions');
 var app_dispatcher_1 = require('./app.dispatcher');
 var app_store_1 = require('./app.store');
@@ -152,7 +116,7 @@ var AppModule = (function () {
 }());
 exports.AppModule = AppModule;
 
-},{"./app.actions":1,"./app.component":2,"./app.dispatcher":3,"./app.store":5,"./hello-world.component":6,"@angular/core":10,"@angular/forms":11,"@angular/platform-browser":13}],5:[function(require,module,exports){
+},{"./app.actions":1,"./app.dispatcher":2,"./app.store":4,"./components/app.component":5,"./components/hello-world.component":6,"@angular/core":10,"@angular/forms":11,"@angular/platform-browser":13}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -203,7 +167,7 @@ var AppStore = (function (_super) {
 }(walts_1.Store));
 exports.AppStore = AppStore;
 
-},{"./app.dispatcher":3,"@angular/core":10,"walts":666}],6:[function(require,module,exports){
+},{"./app.dispatcher":2,"@angular/core":10,"walts":666}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -215,8 +179,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var app_actions_1 = require('./app.actions');
-var app_dispatcher_1 = require('./app.dispatcher');
+var app_actions_1 = require('../app.actions');
+var app_dispatcher_1 = require('../app.dispatcher');
+var app_store_1 = require('../app.store');
+var AppComponent = (function () {
+    function AppComponent(actions, dispatcher, store) {
+        this.actions = actions;
+        this.dispatcher = dispatcher;
+        this.store = store;
+    }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.store.appState.subscribe(function (s) { return _this.state = s; });
+    };
+    AppComponent = __decorate([
+        core_1.Component({
+            selector: 'my-app',
+            template: "\n    <hello-world [user]=state.user></hello-world>\n  "
+        }), 
+        __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher, app_store_1.AppStore])
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+
+},{"../app.actions":1,"../app.dispatcher":2,"../app.store":4,"@angular/core":10}],6:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var app_actions_1 = require('../app.actions');
+var app_dispatcher_1 = require('../app.dispatcher');
 var HelloWorldComponent = (function () {
     function HelloWorldComponent(actions, dispatcher) {
         this.actions = actions;
@@ -240,7 +240,7 @@ var HelloWorldComponent = (function () {
 }());
 exports.HelloWorldComponent = HelloWorldComponent;
 
-},{"./app.actions":1,"./app.dispatcher":3,"@angular/core":10}],7:[function(require,module,exports){
+},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":10}],7:[function(require,module,exports){
 "use strict";
 require('core-js');
 require('zone.js/dist/zone');
@@ -248,7 +248,7 @@ var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var app_module_1 = require('./app.module');
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
-},{"./app.module":4,"@angular/platform-browser-dynamic":12,"core-js":14,"zone.js/dist/zone":671}],8:[function(require,module,exports){
+},{"./app.module":3,"@angular/platform-browser-dynamic":12,"core-js":14,"zone.js/dist/zone":671}],8:[function(require,module,exports){
 (function (global){
 /**
  * @license Angular v2.0.1
