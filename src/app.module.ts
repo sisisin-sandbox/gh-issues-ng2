@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HelloWorldComponent } from './hello-world.component';
@@ -10,7 +11,8 @@ import { AppState } from './app.state';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,

@@ -17,7 +17,6 @@ export class AppComponent {
     private dispatcher: AppDispatcher,
     private store: AppStore,
   ) { }
-
   ngOnInit() {
     this.store.appState.subscribe(s => this.state = s);
   }

@@ -1,16 +1,25 @@
 import { Component, Input } from '@angular/core';
 import { User } from './app.state';
+import { AppActions } from './app.actions';
+import { AppDispatcher } from './app.dispatcher';
 
 @Component({
   selector: 'hello-world',
   template: `
     <h1>Hello World!</h1>
-    <div>{{ user.id }}</div>
+    <input [(ngModel)]="user.id" />
+    <input type="password" [(ngModel)]="user.password" />
+    <input type="submit" value="save" (click)="onSubmit($event)"/>
   `
 })
 export class HelloWorldComponent {
   @Input() user: User;
-  ngOnInit() {
-    console.log(this.user);
+  constructor(
+    private actions: AppActions,
+    private dispatcher: AppDispatcher
+  ) { }
+
+  onSubmit(e: Event) {
+    this.dispatcher.emit(this.actions.saveUserData(this.user));
   }
 }
