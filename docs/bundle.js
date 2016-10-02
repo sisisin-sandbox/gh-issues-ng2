@@ -58,7 +58,14 @@ var AppActions = (function (_super) {
                 var owner = _a.owner, name = _a.name;
                 return fetchGitHub(state.user, "/repos/" + owner + "/" + name + "/issues");
             }))
-                .then(function (issuesList) { return function (state) { return Object.assign({}, state, { issues: issuesList.reduce(function (prev, cur) { return prev.concat(cur); }) }); }; });
+                .then(function (issuesList) {
+                var issues = issuesList
+                    .map(function (issues, idx) {
+                    return issues.map(function (issue) { return Object.assign({}, issue, { repositoryName: repos[idx].owner + "/" + repos[idx].name }); });
+                })
+                    .reduce(function (prev, cur) { return prev.concat(cur); });
+                return function (state) { return Object.assign({}, state, { issues: issues }); };
+            });
         };
     };
     AppActions.prototype.saveRepositories = function (repositories) {
@@ -306,8 +313,7 @@ var Issues = (function () {
     }
     Issues.prototype.head = function (issue) {
         var kind = issue.pull_request ? 'PR' : 'issue';
-        return "[" + kind + "]";
-        // return `[${issue.repository.name} ${kind}]`;
+        return "[" + issue.repositoryName + " " + kind + "]";
     };
     __decorate([
         core_1.Input(), 
@@ -316,7 +322,7 @@ var Issues = (function () {
     Issues = __decorate([
         core_1.Component({
             selector: 'issues',
-            template: "\n    <div *ngFor=\"let issue of issues\">\n      <span>{{head(issue)}}</span>\n      <a href=\"{{ issue.html_url }}\" target=\"_blank\">{{ issue.title }}</a>\n    </div>\n  "
+            template: "\n    <h1>your issues and prs</h1>\n    <div *ngFor=\"let issue of issues\">\n      <span>{{head(issue)}}</span>\n      <a href=\"{{ issue.html_url }}\" target=\"_blank\">{{ issue.title }}</a>\n    </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], Issues);

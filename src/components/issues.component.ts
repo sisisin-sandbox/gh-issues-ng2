@@ -4,6 +4,7 @@ import { Issue } from '../app.state';
 @Component({
   selector: 'issues',
   template: `
+    <h1>your issues and prs</h1>
     <div *ngFor="let issue of issues">
       <span>{{head(issue)}}</span>
       <a href="{{ issue.html_url }}" target="_blank">{{ issue.title }}</a>
@@ -16,8 +17,7 @@ export class Issues {
   ) { }
   head(issue: Issue): string {
     const kind = issue.pull_request ? 'PR' : 'issue';
-    return `[${kind}]`;
-    // return `[${issue.repository.name} ${kind}]`;
+    return `[${issue.repositoryName} ${kind}]`;
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Action } from 'walts';
 
-import { AppState, User, Issue, Repository } from './app.state';
+import { AppState, User, ResIssue, Issue, Repository } from './app.state';
 
 @Injectable()
 export class AppActions extends Actions<AppState> {
@@ -22,7 +22,7 @@ export class AppActions extends Actions<AppState> {
       const headers = { Authorization: `Basic ${credentials}` };
       const params = `?assignee=${id}`;
       return fetch(`https://api.github.com${url}${params}`, { headers })
-        .then<Issue>((res) => {
+        .then<ResIssue>((res) => {
           if (res.status === 200) { return res.json(); }
           else { return Promise.reject(res.json()); }
         })
@@ -34,8 +34,15 @@ export class AppActions extends Actions<AppState> {
 
     return (state) => {
       const repos = state.repositories;
-      return Promise.all<Issue[]>(repos.map(({owner, name}) => fetchGitHub(state.user, `/repos/${owner}/${name}/issues`)))
-      .then(issuesList => { return (state: AppState) => Object.assign({}, state, { issues: issuesList.reduce((prev, cur) => [...prev, ...cur]) }); });
+      return Promise.all<ResIssue[]>(repos.map(({owner, name}) => fetchGitHub(state.user, `/repos/${owner}/${name}/issues`)))
+        .then(issuesList => {
+          const issues = issuesList
+            .map((issues, idx) => {
+              return issues.map(issue => Object.assign({}, issue, { repositoryName: `${repos[idx].owner}/${repos[idx].name}` }));
+            })
+            .reduce((prev, cur) => [...prev, ...cur]);
+          return (state: AppState) => Object.assign({}, state, { issues });
+        });
     };
   }
 

@@ -11,12 +11,14 @@ export interface User {
   password: string;
 }
 
-export interface Issue {
+export interface ResIssue {
   pull_request?: Object;
   title: string;
-  repository: {
-    name: string;
-  };
+  html_url: string;
+}
+
+export interface Issue extends ResIssue {
+  repositoryName: string;
 }
 
 export interface Repository {
