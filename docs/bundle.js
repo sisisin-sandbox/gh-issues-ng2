@@ -131,7 +131,7 @@ var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./components/app.component');
-var hello_world_component_1 = require('./components/hello-world.component');
+var user_component_1 = require('./components/user.component');
 var issues_component_1 = require('./components/issues.component');
 var select_repository_component_1 = require('./components/select-repository.component');
 var label_component_1 = require('./components/label.component');
@@ -149,7 +149,7 @@ var AppModule = (function () {
             ],
             declarations: [
                 app_component_1.AppComponent,
-                hello_world_component_1.HelloWorldComponent,
+                user_component_1.UserComponent,
                 issues_component_1.Issues,
                 select_repository_component_1.SelectRepositoryComponent,
                 label_component_1.LabelComponent
@@ -167,7 +167,7 @@ var AppModule = (function () {
 }());
 exports.AppModule = AppModule;
 
-},{"./app.actions":1,"./app.dispatcher":2,"./app.store":4,"./components/app.component":5,"./components/hello-world.component":6,"./components/issues.component":7,"./components/label.component":8,"./components/select-repository.component":9,"@angular/core":13,"@angular/forms":14,"@angular/platform-browser":16}],4:[function(require,module,exports){
+},{"./app.actions":1,"./app.dispatcher":2,"./app.store":4,"./components/app.component":5,"./components/issues.component":6,"./components/label.component":7,"./components/select-repository.component":8,"./components/user.component":9,"@angular/core":13,"@angular/forms":14,"@angular/platform-browser":16}],4:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -256,7 +256,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <hello-world [user]=state.user></hello-world>\n    <select-repository [repositories]=state.repositories></select-repository>\n    <issues [issues]=state.issues></issues>\n  "
+            template: "\n    <user [user]=state.user></user>\n    <select-repository [repositories]=state.repositories></select-repository>\n    <issues [issues]=state.issues></issues>\n  "
         }), 
         __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher, app_store_1.AppStore])
     ], AppComponent);
@@ -265,43 +265,6 @@ var AppComponent = (function () {
 exports.AppComponent = AppComponent;
 
 },{"../app.actions":1,"../app.dispatcher":2,"../app.store":4,"@angular/core":13}],6:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require('@angular/core');
-var app_actions_1 = require('../app.actions');
-var app_dispatcher_1 = require('../app.dispatcher');
-var HelloWorldComponent = (function () {
-    function HelloWorldComponent(actions, dispatcher) {
-        this.actions = actions;
-        this.dispatcher = dispatcher;
-    }
-    HelloWorldComponent.prototype.onSubmit = function (e) {
-        this.dispatcher.emit(this.actions.saveUserData(this.user));
-    };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', Object)
-    ], HelloWorldComponent.prototype, "user", void 0);
-    HelloWorldComponent = __decorate([
-        core_1.Component({
-            selector: 'hello-world',
-            template: "\n    <h1>Hello World!</h1>\n    <input [(ngModel)]=\"user.id\" />\n    <input type=\"password\" [(ngModel)]=\"user.password\" />\n    <input type=\"submit\" value=\"save\" (click)=\"onSubmit($event)\"/>\n  "
-        }), 
-        __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher])
-    ], HelloWorldComponent);
-    return HelloWorldComponent;
-}());
-exports.HelloWorldComponent = HelloWorldComponent;
-
-},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -342,7 +305,7 @@ var Issues = (function () {
 }());
 exports.Issues = Issues;
 
-},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],8:[function(require,module,exports){
+},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -373,7 +336,7 @@ var LabelComponent = (function () {
 }());
 exports.LabelComponent = LabelComponent;
 
-},{"@angular/core":13}],9:[function(require,module,exports){
+},{"@angular/core":13}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -416,6 +379,43 @@ var SelectRepositoryComponent = (function () {
     return SelectRepositoryComponent;
 }());
 exports.SelectRepositoryComponent = SelectRepositoryComponent;
+
+},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],9:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var app_actions_1 = require('../app.actions');
+var app_dispatcher_1 = require('../app.dispatcher');
+var UserComponent = (function () {
+    function UserComponent(actions, dispatcher) {
+        this.actions = actions;
+        this.dispatcher = dispatcher;
+    }
+    UserComponent.prototype.onSubmit = function (e) {
+        this.dispatcher.emit(this.actions.saveUserData(this.user));
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', Object)
+    ], UserComponent.prototype, "user", void 0);
+    UserComponent = __decorate([
+        core_1.Component({
+            selector: 'user',
+            template: "\n    <h1>User</h1>\n    <input [(ngModel)]=\"user.id\" />\n    <input type=\"password\" [(ngModel)]=\"user.password\" />\n    <input type=\"submit\" value=\"save\" (click)=\"onSubmit($event)\"/>\n  "
+        }), 
+        __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher])
+    ], UserComponent);
+    return UserComponent;
+}());
+exports.UserComponent = UserComponent;
 
 },{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],10:[function(require,module,exports){
 "use strict";

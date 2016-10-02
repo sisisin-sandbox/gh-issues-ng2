@@ -7,7 +7,7 @@ import { AppState } from '../app.state';
 @Component({
   selector: 'my-app',
   template: `
-    <hello-world [user]=state.user></hello-world>
+    <user [user]=state.user></user>
     <select-repository [repositories]=state.repositories></select-repository>
     <issues [issues]=state.issues></issues>
   `
