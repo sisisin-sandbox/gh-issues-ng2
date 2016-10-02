@@ -21,7 +21,7 @@ export class SelectRepositoryComponent {
   constructor(
     private actions: AppActions,
     private dispatcher: AppDispatcher
-  ){}
+  ) { }
   add() {
     this.repositories.push({ owner: '', name: '' });
   }

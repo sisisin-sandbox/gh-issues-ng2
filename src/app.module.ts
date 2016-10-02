@@ -5,7 +5,7 @@ import { AppComponent } from './components/app.component';
 import { HelloWorldComponent } from './components/hello-world.component';
 import { Issues } from './components/issues.component';
 import { SelectRepositoryComponent } from './components/select-repository.component';
-
+import { LabelComponent } from './components/label.component';
 import { AppActions } from './app.actions';
 import { AppDispatcher } from './app.dispatcher';
 import { AppStore } from './app.store';
@@ -20,7 +20,8 @@ import { AppState } from './app.state';
     AppComponent,
     HelloWorldComponent,
     Issues,
-    SelectRepositoryComponent
+    SelectRepositoryComponent,
+    LabelComponent
   ],
   providers: [
     AppActions,
