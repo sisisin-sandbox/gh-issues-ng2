@@ -26,7 +26,7 @@ export class SelectRepositoryComponent {
     this.repositories.push({ owner: '', name: '' });
   }
   onSubmit() {
-    this.dispatcher.emit(this.actions.saveRepositories(this.repositories));
+    this.dispatcher.emit(this.actions.saveReposAndFetchIssues(this.repositories));
   }
   onDelete(index: number) {
     this.repositories = this.repositories.filter((_, i) => i !== index);

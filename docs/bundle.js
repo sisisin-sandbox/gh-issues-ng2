@@ -313,12 +313,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var app_actions_1 = require('../app.actions');
+var app_dispatcher_1 = require('../app.dispatcher');
 var Issues = (function () {
-    function Issues() {
+    function Issues(actions, dispatcher) {
+        this.actions = actions;
+        this.dispatcher = dispatcher;
     }
     Issues.prototype.head = function (issue) {
         var kind = issue.pull_request ? 'PR' : 'issue';
         return "[" + issue.repositoryName + " " + kind + "]";
+    };
+    Issues.prototype.onReload = function () {
+        this.dispatcher.emit(this.actions.fetchIssues());
     };
     __decorate([
         core_1.Input(), 
@@ -327,15 +334,15 @@ var Issues = (function () {
     Issues = __decorate([
         core_1.Component({
             selector: 'issues',
-            template: "\n    <h1>your issues and prs</h1>\n    <div *ngFor=\"let issue of issues\">\n      <span>{{head(issue)}}</span>\n      <span *ngFor=\"let label of issue.labels\">\n        <issue-label [label]=label></issue-label>\n      </span>\n      <a href=\"{{ issue.html_url }}\" target=\"_blank\">{{ issue.title }}</a>\n    </div>\n  "
+            template: "\n    <h1>your issues and prs</h1>\n    <input type=\"button\" value=\"reload\" (click)=\"onReload()\" />\n    <div *ngFor=\"let issue of issues\">\n      <span>{{head(issue)}}</span>\n      <span *ngFor=\"let label of issue.labels\">\n        <issue-label [label]=label></issue-label>\n      </span>\n      <a href=\"{{ issue.html_url }}\" target=\"_blank\">{{ issue.title }}</a>\n    </div>\n  "
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher])
     ], Issues);
     return Issues;
 }());
 exports.Issues = Issues;
 
-},{"@angular/core":13}],8:[function(require,module,exports){
+},{"../app.actions":1,"../app.dispatcher":2,"@angular/core":13}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -389,7 +396,7 @@ var SelectRepositoryComponent = (function () {
         this.repositories.push({ owner: '', name: '' });
     };
     SelectRepositoryComponent.prototype.onSubmit = function () {
-        this.dispatcher.emit(this.actions.saveRepositories(this.repositories));
+        this.dispatcher.emit(this.actions.saveReposAndFetchIssues(this.repositories));
     };
     SelectRepositoryComponent.prototype.onDelete = function (index) {
         this.repositories = this.repositories.filter(function (_, i) { return i !== index; });
