@@ -74,6 +74,9 @@ var AppActions = (function (_super) {
         }
         return function (s) { return Object.assign({}, s, { repositories: repositories }); };
     };
+    AppActions.prototype.saveReposAndFetchIssues = function (repos) {
+        return this.combine(this.saveRepositories(repos), this.fetchIssues());
+    };
     AppActions = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
@@ -355,6 +358,10 @@ var SelectRepositoryComponent = (function () {
     SelectRepositoryComponent.prototype.onSubmit = function () {
         this.dispatcher.emit(this.actions.saveRepositories(this.repositories));
     };
+    SelectRepositoryComponent.prototype.onDelete = function (index) {
+        this.repositories = this.repositories.filter(function (_, i) { return i !== index; });
+        this.dispatcher.emit(this.actions.saveReposAndFetchIssues(this.repositories));
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)
@@ -362,7 +369,7 @@ var SelectRepositoryComponent = (function () {
     SelectRepositoryComponent = __decorate([
         core_1.Component({
             selector: 'select-repository',
-            template: "\n    <h1>select your repos.</h1>\n    <input type=\"button\" value=\"add\" (click)=\"add()\" />\n    <div *ngFor=\"let repo of repositories\">\n      <input [(ngModel)]=\"repo.owner\" />\n      <input [(ngModel)]=\"repo.name\" />\n    </div>\n    <input type=\"submit\" value=\"save\" (click)=\"onSubmit($event)\"/>\n  "
+            template: "\n    <h1>select your repos.</h1>\n    <div *ngFor=\"let repo of repositories; let i=index\">\n      <input [(ngModel)]=\"repo.owner\" />\n      <input [(ngModel)]=\"repo.name\" />\n      <input type=\"button\" value=\"delete\" (click)=\"onDelete(i)\" />\n    </div>\n    <input type=\"button\" value=\"add\" (click)=\"add()\" />\n    <input type=\"submit\" value=\"save\" (click)=\"onSubmit($event)\"/>\n  "
         }), 
         __metadata('design:paramtypes', [app_actions_1.AppActions, app_dispatcher_1.AppDispatcher])
     ], SelectRepositoryComponent);

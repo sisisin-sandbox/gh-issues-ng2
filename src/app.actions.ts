@@ -52,4 +52,7 @@ export class AppActions extends Actions<AppState> {
     }
     return (s) => Object.assign({}, s, { repositories });
   }
+  saveReposAndFetchIssues(repos: Repository[]): Action<AppState>[] {
+    return this.combine(this.saveRepositories(repos), this.fetchIssues());
+  }
 }
