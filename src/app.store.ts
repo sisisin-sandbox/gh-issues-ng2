@@ -14,7 +14,8 @@ function getUserFromLocalStorage() {
 function getInitialState(): AppState {
   const user = getUserFromLocalStorage();
   return {
-    user
+    user,
+    issues: []
   };
 }
 

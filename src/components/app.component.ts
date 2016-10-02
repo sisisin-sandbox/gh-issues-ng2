@@ -8,6 +8,7 @@ import { AppState } from '../app.state';
   selector: 'my-app',
   template: `
     <hello-world [user]=state.user></hello-world>
+    <issues [issues]=state.issues></issues>
   `
 })
 export class AppComponent {
@@ -18,6 +19,9 @@ export class AppComponent {
     private store: AppStore,
   ) { }
   ngOnInit() {
-    this.store.appState.subscribe(s => this.state = s);
+    this.store.appState.subscribe(s => {
+      this.state = s
+    });
+    this.dispatcher.emit(this.actions.fetchIssues(this.state.user));
   }
 }

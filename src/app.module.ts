@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './components/app.component';
 import { HelloWorldComponent } from './components/hello-world.component';
+import { Issues } from './components/issues';
 
 import { AppActions } from './app.actions';
 import { AppDispatcher } from './app.dispatcher';
@@ -16,7 +17,8 @@ import { AppState } from './app.state';
   ],
   declarations: [
     AppComponent,
-    HelloWorldComponent
+    HelloWorldComponent,
+    Issues
   ],
   providers: [
     AppActions,
