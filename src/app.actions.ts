@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Action } from 'walts';
 
-import { AppState, User, Issue } from './app.state';
+import { AppState, User, Issue, Repository } from './app.state';
 
 @Injectable()
 export class AppActions extends Actions<AppState> {
@@ -15,7 +15,8 @@ export class AppActions extends Actions<AppState> {
     }
     return (s) => Object.assign({}, s, { user });
   }
-  fetchIssues(user: User): Action<AppState> {
+
+  fetchIssues(): Action<AppState> {
     function fetchGitHub({id, password}: User, url: string) {
       const credentials = btoa(`${id}:${password}`);
       const headers = { Authorization: `Basic ${credentials}` };
@@ -31,8 +32,17 @@ export class AppActions extends Actions<AppState> {
         });
     }
 
-    // todo: replace url hard coding.
-    return () => fetchGitHub(user, '/repos/sisisin/onokori/issues')
-      .then(issues => { return (state: AppState) => Object.assign({}, state, { issues }); });
+    return (state) => {
+      const repos = state.repositories;
+      return Promise.all<Issue[]>(repos.map(({owner, name}) => fetchGitHub(state.user, `/repos/${owner}/${name}/issues`)))
+      .then(issuesList => { return (state: AppState) => Object.assign({}, state, { issues: issuesList.reduce((prev, cur) => [...prev, ...cur]) }); });
+    };
+  }
+
+  saveRepositories(repositories: Repository[]): Action<AppState> {
+    if (repositories.length !== 0) {
+      localStorage.setItem('repositories', JSON.stringify(repositories));
+    }
+    return (s) => Object.assign({}, s, { repositories });
   }
 }

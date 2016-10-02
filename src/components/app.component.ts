@@ -8,6 +8,7 @@ import { AppState } from '../app.state';
   selector: 'my-app',
   template: `
     <hello-world [user]=state.user></hello-world>
+    <select-repository [repositories]=state.repositories></select-repository>
     <issues [issues]=state.issues></issues>
   `
 })
@@ -22,6 +23,6 @@ export class AppComponent {
     this.store.appState.subscribe(s => {
       this.state = s
     });
-    this.dispatcher.emit(this.actions.fetchIssues(this.state.user));
+    this.dispatcher.emit(this.actions.fetchIssues());
   }
 }

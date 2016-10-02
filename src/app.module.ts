@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './components/app.component';
 import { HelloWorldComponent } from './components/hello-world.component';
-import { Issues } from './components/issues';
+import { Issues } from './components/issues.component';
+import { SelectRepositoryComponent } from './components/select-repository.component';
 
 import { AppActions } from './app.actions';
 import { AppDispatcher } from './app.dispatcher';
@@ -18,7 +19,8 @@ import { AppState } from './app.state';
   declarations: [
     AppComponent,
     HelloWorldComponent,
-    Issues
+    Issues,
+    SelectRepositoryComponent
   ],
   providers: [
     AppActions,

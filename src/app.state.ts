@@ -3,6 +3,7 @@ import { State } from 'walts';
 export interface AppState extends State {
   user: User;
   issues: Issue[];
+  repositories: Repository[];
 }
 
 export interface User {
@@ -16,4 +17,9 @@ export interface Issue {
   repository: {
     name: string;
   };
+}
+
+export interface Repository {
+  owner: string;
+  name: string;
 }
