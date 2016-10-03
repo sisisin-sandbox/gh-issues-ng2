@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from 'walts';
 
-import { AppState } from './app.state';
+import { AppState, Repository } from './app.state';
 import { AppDispatcher } from './app.dispatcher';
 
 function getUserFromLocalStorage() {
@@ -10,11 +10,18 @@ function getUserFromLocalStorage() {
   const password = localStorage.getItem('password') ? localStorage.getItem('password') : '';
   return { id, password };
 }
+function getRepositoriesFromLocalStorage(): Repository[] {
+  const repositories = localStorage.getItem('repositories');
+  return repositories ? JSON.parse(repositories) : [];
+}
 
 function getInitialState(): AppState {
   const user = getUserFromLocalStorage();
+  const repositories = getRepositoriesFromLocalStorage();
   return {
-    user
+    user,
+    repositories,
+    issues: []
   };
 }
 

@@ -4,15 +4,15 @@ import { AppActions } from '../app.actions';
 import { AppDispatcher } from '../app.dispatcher';
 
 @Component({
-  selector: 'hello-world',
+  selector: 'user',
   template: `
-    <h1>Hello World!</h1>
+    <h1>User</h1>
     <input [(ngModel)]="user.id" />
     <input type="password" [(ngModel)]="user.password" />
     <input type="submit" value="save" (click)="onSubmit($event)"/>
   `
 })
-export class HelloWorldComponent {
+export class UserComponent {
   @Input() user: User;
   constructor(
     private actions: AppActions,
